@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love U Valentine</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+        canvas {
+            display: block;
+        }
+        .formula {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 12px;
+            opacity: 1;
+            transition: opacity 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="formula" id="formula">sin(π³x) * √((e² - x²) / 2) + √|x|</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script>
+        let showHeart = false;
+        
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            setTimeout(() => {
+                document.getElementById('formula').style.opacity = '0';
+                showHeart = true;
+            }, 4000);
+        }
+
+        function draw() {
+            background(255, 182, 193, 150);
+            translate(width / 2, height / 2);
+
+            if (showHeart) {
+                stroke(255);
+                strokeWeight(2);
+                noFill();
+                beginShape();
+                for (let x = -2; x <= 2; x += 0.01) {
+                    let y = sin(pow(PI, 3) * x) * sqrt((exp(2) - pow(x, 2)) / 2) + sqrt(abs(x));
+                    vertex(x * 50, -y * 50);
+                }
+                endShape();
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>
